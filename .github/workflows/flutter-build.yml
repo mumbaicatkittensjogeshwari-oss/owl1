@@ -11,23 +11,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
 
-      - name: Install dependencies
-        working-directory: ./frontend
-        run: flutter pub get
+    - name: Install dependencies
+      working-directory: ./frontend
+      run: flutter pub get
 
-      - name: Build APK
-        working-directory: ./frontend
-        run: flutter build apk --release
+    - name: Generate native platform folders
+      working-directory: ./frontend
+      run: flutter create . --platforms=android
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-apk
-          path: frontend/build/app/outputs/flutter-apk/app-release.apk
+    # Analyze aur Test hata diya hai taaki build direct chale
+    - name: Build APK
+      working-directory: ./frontend
+      run: flutter build apk --release
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-apk
+        path: frontend/build/app/outputs/flutter-apk/app-release.apk
