@@ -22,13 +22,12 @@ jobs:
       working-directory: ./frontend
       run: flutter pub get
 
-    # Analyze aur Test hata diya hai taaki build direct chale
-    - name: Build APK
+    - name: Build Web
       working-directory: ./frontend
-      run: flutter build apk --release
+      run: flutter build web
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: release-apk
-        path: frontend/build/app/outputs/flutter-apk/app-release.apk
+        name: web-build
+        path: frontend/build/web
