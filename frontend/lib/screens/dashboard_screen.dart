@@ -121,7 +121,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   ...List.generate(
-                    (provider.signals.take(3).toList()..length).clamp(0, 3),
+                    provider.signals.length.clamp(0, 3),
                     (i) {
                       final sig = provider.signals[i];
                       return _SignalRow(sig);
