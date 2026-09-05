@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
@@ -15,7 +16,7 @@ class WebSocketService {
         Uri.parse(_wsUrl),
         pingInterval: const Duration(seconds: 30),
       );
-      
+
       _channel!.stream.listen(
         (message) {
           try {
@@ -42,7 +43,7 @@ class WebSocketService {
           _scheduleReconnect();
         },
       );
-      
+
       _isConnected = true;
       print('WebSocket connected');
     } catch (e) {
