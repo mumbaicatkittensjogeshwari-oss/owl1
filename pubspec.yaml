@@ -23,7 +23,6 @@ dependencies:
   
   # Utilities
   shared_preferences: ^2.2.2
-  connectivity_plus: ^5.0.0
   
   # Modern UI Components
   glassmorphism: ^3.0.0
@@ -41,6 +40,6 @@ flutter:
   fonts:
     - family: Inter
       fonts:
-        - asset: assets/fonts/Inter-Regular.ttf
-        - asset: assets/fonts/Inter-Bold.ttf
+        - asset: assets/fonts/Inter_28pt-Regular.ttf
+        - asset: assets/fonts/Inter_24pt-Bold.ttf
           weight: 700
