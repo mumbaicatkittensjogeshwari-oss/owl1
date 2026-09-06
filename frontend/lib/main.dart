@@ -67,6 +67,12 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _wsService = WebSocketService();
+    _wsService.onMessage = (data) {
+      // BUG FIX: this callback used to never be set, so every WebSocket
+      // push from the backend was silently dropped - the UI only ever
+      // showed whatever init() fetched once at startup.
+      context.read<AppProvider>().updateFromWebSocket(data);
+    };
     _wsService.connect();
   }
 
