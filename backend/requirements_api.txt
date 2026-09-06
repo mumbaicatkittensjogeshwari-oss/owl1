@@ -1,5 +1,10 @@
 fastapi
+starlette
 uvicorn
+h11
 websockets
 python-dotenv
-pydantic
+pydantic<2
+requests
+websocket-client
+certifi
