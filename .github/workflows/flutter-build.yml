@@ -26,6 +26,12 @@ jobs:
       working-directory: ./frontend
       run: flutter create . --platforms=android
 
+    - name: Allow cleartext (HTTP) traffic for backend calls
+      working-directory: ./frontend
+      run: |
+        sed -i 's/<application/<application android:usesCleartextTraffic="true"/' android/app/src/main/AndroidManifest.xml
+        grep -o 'android:usesCleartextTraffic="true"' android/app/src/main/AndroidManifest.xml
+
     # Analyze aur Test hata diya hai taaki build direct chale
     - name: Build APK
       working-directory: ./frontend
