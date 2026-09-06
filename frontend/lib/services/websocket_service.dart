@@ -12,10 +12,7 @@ class WebSocketService {
 
   void connect() {
     try {
-      _channel = WebSocketChannel.connect(
-        Uri.parse(_wsUrl),
-        pingInterval: const Duration(seconds: 30),
-      );
+      _channel = WebSocketChannel.connect(Uri.parse(_wsUrl));
 
       _channel!.stream.listen(
         (message) {
