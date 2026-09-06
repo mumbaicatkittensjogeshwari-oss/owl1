@@ -23,7 +23,6 @@ dependencies:
   
   # Utilities
   shared_preferences: ^2.2.2
-  connectivity_plus: ^5.0.0
   
   # Modern UI Components
   glassmorphism: ^3.0.0
