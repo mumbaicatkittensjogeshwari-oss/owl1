@@ -32,6 +32,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _controllers['daily_loss_limit_usdt'] = TextEditingController(
         text: (settings['daily_loss_limit_usdt'] ?? 0.0).toString(),
       );
+      _controllers['telegram_bot_token'] = TextEditingController(
+        text: (settings['telegram_bot_token'] ?? '').toString(),
+      );
+      _controllers['telegram_chat_id'] = TextEditingController(
+        text: (settings['telegram_chat_id'] ?? '').toString(),
+      );
     });
   }
 
@@ -48,6 +54,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       'leverage': double.tryParse(_controllers['leverage']?.text ?? '1') ?? 1.0,
       'daily_target_usdt': double.tryParse(_controllers['daily_target_usdt']?.text ?? '0') ?? 0.0,
       'daily_loss_limit_usdt': double.tryParse(_controllers['daily_loss_limit_usdt']?.text ?? '0') ?? 0.0,
+      'telegram_bot_token': _controllers['telegram_bot_token']?.text ?? '',
+      'telegram_chat_id': _controllers['telegram_chat_id']?.text ?? '',
     };
     await Provider.of<AppProvider>(context, listen: false).updateSettings(settings);
     setState(() => _isLoading = false);
@@ -90,6 +98,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _buildSection('Daily Limits', [
                       _buildTextField('Daily Target (USDT)', 'daily_target_usdt'),
                       _buildTextField('Daily Loss Limit (USDT)', 'daily_loss_limit_usdt'),
+                    ]),
+                    const SizedBox(height: 16),
+                    _buildSection('Telegram', [
+                      _buildTextField('Bot Token', 'telegram_bot_token', isText: true),
+                      _buildTextField('Chat ID', 'telegram_chat_id', isText: true),
                     ]),
                     const SizedBox(height: 24),
                     ElevatedButton(
@@ -143,7 +156,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildTextField(String label, String key) {
+  Widget _buildTextField(String label, String key, {bool isText = false}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Column(
@@ -157,7 +170,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           TextField(
             controller: _controllers[key],
             style: const TextStyle(color: Colors.white),
-            keyboardType: TextInputType.number,
+            keyboardType: isText ? TextInputType.text : TextInputType.number,
+            obscureText: isText && key == 'telegram_bot_token',
             decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white.withOpacity(0.05),
