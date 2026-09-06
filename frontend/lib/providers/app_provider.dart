@@ -53,6 +53,7 @@ class AppProvider extends ChangeNotifier {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/api/status'));
       if (response.statusCode == 200) {
+        _error = null;
         _status = jsonDecode(response.body);
         _positions = _status['open_positions'] ?? [];
         notifyListeners();
@@ -67,6 +68,7 @@ class AppProvider extends ChangeNotifier {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/api/market'));
       if (response.statusCode == 200) {
+        _error = null;
         final data = jsonDecode(response.body);
         _movers = data['movers'] ?? [];
         notifyListeners();
@@ -81,6 +83,7 @@ class AppProvider extends ChangeNotifier {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/api/signals'));
       if (response.statusCode == 200) {
+        _error = null;
         final data = jsonDecode(response.body);
         _signals = data['signals'] ?? [];
         notifyListeners();
@@ -95,6 +98,7 @@ class AppProvider extends ChangeNotifier {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/api/alerts'));
       if (response.statusCode == 200) {
+        _error = null;
         final data = jsonDecode(response.body);
         _alerts = data['alerts'] ?? [];
         notifyListeners();
@@ -109,6 +113,7 @@ class AppProvider extends ChangeNotifier {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/api/history'));
       if (response.statusCode == 200) {
+        _error = null;
         final data = jsonDecode(response.body);
         _history = data['trades'] ?? [];
         notifyListeners();
@@ -123,6 +128,7 @@ class AppProvider extends ChangeNotifier {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/api/equity'));
       if (response.statusCode == 200) {
+        _error = null;
         final data = jsonDecode(response.body);
         _equityCurve = List<Map<String, dynamic>>.from(data['curve'] ?? []);
         notifyListeners();
@@ -137,6 +143,7 @@ class AppProvider extends ChangeNotifier {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/api/settings'));
       if (response.statusCode == 200) {
+        _error = null;
         _settings = jsonDecode(response.body);
         notifyListeners();
       }
@@ -154,6 +161,7 @@ class AppProvider extends ChangeNotifier {
         body: jsonEncode(newSettings),
       );
       if (response.statusCode == 200) {
+        _error = null;
         _settings.addAll(newSettings);
         notifyListeners();
       }
@@ -169,6 +177,7 @@ class AppProvider extends ChangeNotifier {
         Uri.parse('$_baseUrl/api/close/$id'),
       );
       if (response.statusCode == 200) {
+        _error = null;
         await fetchStatus();
       }
     } catch (e) {
@@ -183,6 +192,7 @@ class AppProvider extends ChangeNotifier {
         Uri.parse('$_baseUrl/api/close_all'),
       );
       if (response.statusCode == 200) {
+        _error = null;
         await fetchStatus();
       }
     } catch (e) {
@@ -195,6 +205,7 @@ class AppProvider extends ChangeNotifier {
     if (data['type'] == 'update' || data['type'] == 'init') {
       final payload = data['data'] ?? data;
       if (payload is Map<String, dynamic>) {
+        _error = null;
         if (payload.containsKey('open_positions')) {
           _positions = payload['open_positions'] ?? [];
         }
